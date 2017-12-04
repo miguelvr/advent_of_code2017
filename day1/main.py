@@ -4,7 +4,7 @@ import time
 from collections import Counter
 
 
-def solve_captcha(captcha_file):
+def solve_captcha(captcha_file, part2=False):
 
     count = Counter()
 
@@ -17,9 +17,13 @@ def solve_captcha(captcha_file):
     else:
         captcha = captcha[0].strip()
 
-    for i, digit in enumerate(captcha[:-1]):
+    length = len(captcha)
+    for i, digit in enumerate(captcha):
 
-        next_digit = captcha[i+1]
+        if part2:
+            next_digit = captcha[(i + length/2) % length]
+        else:
+            next_digit = captcha[(i+1) % length]
 
         if not digit.isdigit() or not next_digit.isdigit():
             raise ValueError(
@@ -29,9 +33,6 @@ def solve_captcha(captcha_file):
 
         if digit == next_digit:
             count.update(digit)
-
-    if captcha[-1] == captcha[0]:
-        count.update(captcha[-1])
 
     return sum_counter(count)
 
@@ -48,10 +49,18 @@ if __name__ == '__main__':
 
     file_path = sys.argv[-1]
 
+    print "\nCaptcha File: %s\n" % file_path
+
     t1 = time.time()
     solution = solve_captcha(file_path)
     t2 = time.time() - t1
 
-    print "Captcha File:", file_path
-    print "Solution:", solution
+    print "Part 1 Solution: %d" % solution
+    print "Took: %.3f ms\n" % (t2 * 1000)
+
+    t1 = time.time()
+    solution = solve_captcha(file_path, part2=True)
+    t2 = time.time() - t1
+
+    print "Part 2 Solution: %d" % solution
     print "Took: %.3f ms" % (t2 * 1000)
