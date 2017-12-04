@@ -1,5 +1,6 @@
 import os
 import sys
+import time
 from collections import Counter
 
 
@@ -44,8 +45,13 @@ def sum_counter(counter):
 
 
 if __name__ == '__main__':
+
     file_path = sys.argv[-1]
+
+    t1 = time.time()
     solution = solve_captcha(file_path)
+    t2 = time.time() - t1
 
     print "Captcha File:", file_path
     print "Solution:", solution
+    print "Took: %.3f ms" % (t2 * 1000)
