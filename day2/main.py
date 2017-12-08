@@ -42,18 +42,18 @@ def read_spreadsheet(file_path):
 if __name__ == '__main__':
     file_path = sys.argv[-1]
 
-    print "Spreadsheet File:", file_path
+    print "Spreadsheet File: %s" % file_path
 
     t1 = time.time()
     checksum = compute_checksum(file_path)
     t2 = time.time() - t1
 
-    print "Part 1 Checksum:", checksum
+    print "\nPart 1 Checksum: %d" % checksum
     print "Took: %.3f ms" % (t2 * 1000)
 
     t1 = time.time()
     checksum = compute_checksum(file_path, part2=True)
     t2 = time.time() - t1
 
-    print "Part 2 Checksum:", checksum
+    print "\nPart 2 Checksum: %d" % checksum
     print "Took: %.3f ms" % (t2 * 1000)
